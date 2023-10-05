@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title>Cotizacion</title>
+        <h1>Cotizacion</h1>
+    </header>
+    <body>
+        <form>
+            <p>Numero de cajas</p>
+            <input type="number" id="num_cajas" name="num_cajas">
+
+            <p>Kilos por caja</p>
+            <input type="number" id="kilos" name="kilos">
+
+            <p>Costo por caja</p>
+            <input type="number" id="costo" name="costo">
+
+            <p>Costo del flete</p>
+            <input type="number" id="flete" name="flete">
+
+            <p>¿Para que tienda va?</p>
+            <input type="radio" id="HEB" name="tienda" value="HEB">
+            <label for="HEB">HEB</label><br>
+            <input type="radio" id="Chedraui" name="tienda" value="Chedraui">
+            <label for="Chedraui">Chedraui</label><br>
+            
+            <br><br><button type="button" onclick="calcular()">Submit</button>
+            <input type="reset" value="Reset">
+
+        </form>
+
+        <h2>Resultados</h2>
+        <p id = "precioN"></p>
+        <p id = "precioU1"></p>
+        <p id = "precioU2"></p>
+        <p id = "precioU3"></p>
+
+        <script>
+            function calcular(){
+                var numCajas = parseFloat(document.getElementById("num_cajas").value);
+                var kilosCaja = parseFloat(document.getElementById("kilos").value);
+                var costoCaja = parseFloat(document.getElementById("costo").value);
+                var costoFlete = parseFloat(document.getElementById("flete").value);
+                var opcionSuper1 = document.getElementById("HEB");
+                var opcionSuper2 = document.getElementById("Chedraui");
+                var costoFleteSuper;
+                var empaque = numCajas * 2.5;
+                var kilosTotales = numCajas * kilosCaja;
+
+                if(opcionSuper1.checked == true){
+                    costoFleteSuper = 5300 * 1.16;
+                }
+                if(opcionSuper2.checked == true){
+                    costoFleteSuper = 3800 * 1.16;
+                }
+
+                var costoTotal = ((numCajas * costoCaja) + costoFlete + costoFleteSuper + empaque);
+                var costoKilo = costoTotal / kilosTotales;
+                var precioNormal = costoKilo / 0.9;
+                var precioUtilidad1 = precioNormal / 0.9;
+                var precioUtilidad2 = precioNormal / 0.85;
+                var precioUtilidad3 = precioNormal / 0.8; 
+                document.getElementById("precioN").innerHTML = "Precio sin utilidad: $" + precioNormal;
+                document.getElementById("precioU1").innerHTML = "Precio con 10% de utilidad: $" + precioUtilidad1;
+                document.getElementById("precioU2").innerHTML = "Precio con 15% de utilidad: $" + precioUtilidad2;
+                document.getElementById("precioU3").innerHTML = "Precio con 20% de utilidad: $" + precioUtilidad3;
+
+            }
+        </script>
+
+    </body>
+</html>
